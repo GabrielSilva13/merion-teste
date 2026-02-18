@@ -10,6 +10,13 @@ import { SlotScene } from '@presentation/scenes/slot-scene';
 import { loadGameAssets } from './infrastructure/asset-loader';
 import '@presentation/debug/perf-overlay';
 
+
+declare global {
+  interface Window {
+    app?: SlotMachineApp;
+  }
+}
+
 class SlotMachineApp extends PixiApp {
   private sceneManager: SceneManager | null = null;
   private controller: GameController | null = null;
@@ -27,9 +34,13 @@ class SlotMachineApp extends PixiApp {
 
   public override async initialize(): Promise<void> {
     await super.initialize();
+
+    await loadGameAssets();
+
+
     this.setUpdateHandler((dt) => this.onUpdate(dt));
     this.initializeController();
-    this.initializeScenes();
+    await this.initializeScenes();
   }
 
   private initializeController(): void {
@@ -63,7 +74,7 @@ class SlotMachineApp extends PixiApp {
       throw new Error('Controller not initialized');
     }
 
-    await loadGameAssets();
+
 
 
     this.sceneManager = new SceneManager(this.getStageRoot());
@@ -118,13 +129,13 @@ async function bootstrap(): Promise<void> {
     }
 
     setInterval(() => {
-      const app = (window as any).app.getApp?.() ?? (window as any).app?.getApp?.();
-      if (!app) return;
+      const pixiApp = window.app?.getApp?.();
+      if (!pixiApp) return;
 
-      console.log('FPS real:', app.ticker.FPS);
+      console.log('FPS real:', pixiApp.ticker.FPS);
     }, 1000);
 
-    (window as typeof window & { app: SlotMachineApp }).app = app;
+    window.app = app;
   } catch (error) {
     console.error('❌ Failed to initialize application:', error);
     throw error;

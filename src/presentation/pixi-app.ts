@@ -1,5 +1,5 @@
 import { Application, Container } from 'pixi.js';
-import type { ApplicationOptions } from 'pixi.js';
+import type { ApplicationOptions, Ticker } from 'pixi.js';
 
 const DESIGN_WIDTH = 1280;
 const DESIGN_HEIGHT = 720;
@@ -121,7 +121,7 @@ export class PixiApp {
     this.app.ticker.remove(this.tick, this);
   }
 
-  private tick(ticker: any): void {
+  private tick(ticker: Ticker): void {
     if (!this.isRunning) return;
     const deltaSeconds = ticker.deltaMS / 1000;
     this.updateCallback?.(deltaSeconds);
