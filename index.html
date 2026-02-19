@@ -46,23 +46,34 @@
         position: fixed;
         inset: 0;
         z-index: 10000;
+
+        width: 100%;
+        height: 100dvh;
+
+        background-color: #000;
         background-image: url('/assets/preloader/PRELOADER.jpg');
-        background-position: center center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover; 
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         transition: opacity 0.4s ease-out;
+}
+
+/* Mobile (portrait) */
+@media (max-width: 768px) and (orientation: portrait) {
+  #preloader {
+    background-size: contain; /* mostra tudo */
+    background-position: center;
+  }
       }
 
       #preloader.fade-out {
         opacity: 0;
         pointer-events: none;
-      }
-
-      #preloader img {
-        max-width: 90%;
-        max-height: 90%;
-        object-fit: contain;
       }
 
       /* Rotate-device overlay — only visible in portrait on mobile */

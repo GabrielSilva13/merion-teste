@@ -45,3 +45,7 @@ coverage/
 .cache/
 .temp/
 .tmp/
+
+
+# Decisions
+decisions.md

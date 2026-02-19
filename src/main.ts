@@ -132,7 +132,7 @@ async function bootstrap(): Promise<void> {
       const pixiApp = window.app?.getApp?.();
       if (!pixiApp) return;
 
-      console.log('FPS real:', pixiApp.ticker.FPS);
+      // console.log('FPS real:', pixiApp.ticker.FPS);
     }, 1000);
 
     window.app = app;

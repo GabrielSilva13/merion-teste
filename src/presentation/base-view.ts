@@ -8,8 +8,8 @@ import { Container } from 'pixi.js';
 export abstract class BaseView extends Container {
   protected isInitialized = false;
 
-  constructor() {
-    super();
+  public get initialized(): boolean {
+    return this.isInitialized;
   }
 
   /**
